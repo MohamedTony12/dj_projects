@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+{% block title %}Home{% endblock title %}
+{% block content %}
+<style>
+  .price{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+  }
+  strike{
+    color: red;
+  }
+</style>
+{# product #}
+<div class="container pt-4">
+  <h1 class="text-center text-capitalize">some product</h1>
+  <hr>
+  <div class="row">
+    {% for product in product %}
+    <div class="col-md-4 product-grid my-3">
+      <div class="image" style="height:300px">
+        <a href="">
+          <img src="{{product.main_pic.url}}" alt="" class="img-fluid p-3">
+          <div class="overlay-product-image">
+            <div class="detail">View Details</div>
+          </div>
+        </a>
+      </div>
+      <h5 class="text-center mt-2 text-capitalize">{{product.name}}</h5>
+      <div class="price">
+      {% if product.discount_price > 0 %}
+        <h6 class="text-center"><small>Price:</small>  <strike> ${{product.selling_price}}</strike>
+        <h6><small>Current Price : </small>${{product.discount_price}}</h6>  
+      {% else %}
+      <h6 class="text-center"><small>Current Price: $</small>{{product.selling_price}} </h6>
+      {% endif %}
+    </div>
+      <a href="" class="btn buy btn-outline-secondary">Buy</a>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+
+{% endblock content %}
