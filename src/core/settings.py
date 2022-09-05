@@ -40,6 +40,9 @@ INSTALLED_APPS = [
     'account.apps.AccountConfig',
     'store.apps.StoreConfig',
     'cart.apps.CartConfig',
+    'crispy_forms',
+
+
 ]
 
 
@@ -153,3 +156,4 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 AUTH_USER_MODEL = 'account.AccountCustom'
 LOGIN_REDIRECT = '/'
 LOGIN_URL = 'account:login'
+CRISPY_TEMPLATE_PACK = 'bootstrap4'

@@ -1,183 +1,112 @@
 <!DOCTYPE html>
 {% load static %}
-{% load i18n %}
-
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
-  <link rel="stylesheet" href="{% static 'css/style.css' %}">
-  <link rel="shortcut icon" href="images/logo.png">
-  <title>{% block title %}{% endblock title %}</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style_ecom.css' %}">
+    <title>{% block title %}{% endblock title %}</title>
 </head>
 <body>
-
-  {# NAVBAR START HERE  #}
-  <nav class="navbar navbar-expand-lg">
-    <div class="container-fluid">
-
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-
-      <a class="" aria-current="page" href="{% url 'store:store_home' %}">
-        <img class="logo" src="{%static 'images/logo.png' %}" alt="" srcset="">
-      </a>
-
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        </ul>
-
-        {# NAVBAR RIGHT  #}
-        <ul class="navbar-nav navbar-right mb-2">
-          <li class="nav-item">
-            <a class="nav-link " href="{% url 'store:store_home' %}"> {% trans "Home" %} </a>
-          </li>
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Categories
-              </a>
-              <ul class="dropdown-menu">
-                {% for c in category %}
-                <li>
-                  <a class="dropdown-item" href="{% url 'store:store_category' c.slug  %}">
-                    <span><img src="{{c.image.url}}" alt="" width='30px' height="100%">{{c.name}}</span></a>
-                </li>
-                {% endfor %}
-                <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item" href="#">Something else here</a></li>
-              </ul>
-            </li>
-          <li class="nav-item">
-            <a class="nav-link " href="#"> {% trans "Product" %} </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link " href="#">{% trans "Contact" %} </a>
-          </li>
-          {% if user.is_authenticated %}
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              {{user}}
-            </a>
-            <ul class="dropdown-menu">
-              <li>
-                <a class="dropdown-item" href="#">Profile</a>
-                <a class="dropdown-item" href="#">My Cart</a>
-              </li>
-              <li><hr class="dropdown-divider"></li>
-              <li><a class="dropdown-item" href="{% url 'account:logout' %}">Logout</a></li>
-            </ul>
-          </li>
-          {% else %}
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Account
-            </a>
-            <ul class="dropdown-menu">
+    <nav class="navbar navbar-expand-lg bg-light shadow">
+        <div class="container-fluid">
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <a class="navbar-brand ms-3" href="{% url 'store:store_home' %}">
+           <i class="fa fa-leaf" aria-hidden="true"></i>
+          </a>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0 mx-auto">
               <li class="nav-item">
-                <a class="nav-link " href="{% url 'account:login' %}">{% trans "Login" %} </a>
-                <a class="nav-link " href="{% url 'account:register' %}">{% trans "register" %} </a>
+                <a class="nav-link active" aria-current="page" href="{% url 'store:store_home' %}">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Link</a>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Dropdown
+                </a>
+                <ul class="dropdown-menu mt-3">
+                  <li><a class="dropdown-item" href="#">Action</a></li>
+                  <li><a class="dropdown-item" href="#">Another action</a></li>
+                  <li><hr class="dropdown-divider"></li>
+                  <li><a class="dropdown-item" href="#">Something else here</a></li>
+                </ul>
               </li>
             </ul>
-          </li>
-          {% endif %}
-         
-          <li class="nav-item">
-            <div class="cart">
-               <a class="nav-link " href="#">
-                <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-              </a>
-              <p class="cart-amount">10</p>
+            <ul class="navbar-nav me-2 mb-2 mb-lg-0">
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  {% if user.is_authenticated %}
+                  Hello : {{user}}
+                  {% else %}
+                  Account
+                  {% endif %}
+                </a>
+                <ul class="dropdown-menu mt-3">
+                  {% if user.is_authenticated %}
+                  <li><a class="dropdown-item" href="{% url 'account:logout' %}">logout</a></li>
+                  <li><a class="dropdown-item" href="#">profile</a></li>
+                  {% else %}
+                  <li><a class="dropdown-item" href="{% url 'account:login' %}">login</a></li>
+                  <li><a class="dropdown-item" href="{% url 'account:register' %}">registe</a></li>
+                  <li><hr class="dropdown-divider"></li>
+                  <li><a class="dropdown-item" href="#">Something else here</a></li>
+                  {% endif %}
+                </ul>
+              </li>
+            </ul>
+            <div class="cart-shopping me-3">
+              <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+              <p class='cart-amount'>00</p>
             </div>
-            
-          </li>
+            <div class="overlay"></div>
+            <form action="" class="search me-5 ms-3">
+              <input type="search" name="search" id="search-input" >
+              <i class="fa fa-search" aria-hidden="true"></i>
+            </form>
+           
+          </div>
+        </div>
+      </nav>
+      <div class="container mt-3">
+        {% for message in messages %}
+        <div class="container-fluid p-0">
+          <div class="alert {{ message.tags }} alert-dismissible" role="alert" >
+            {{ message|capfirst }}
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+
+      <div class="continer">
+        {% block account %}{% endblock account %}
+      </div>
+      <div class="continer">
+        {% block content %}{% endblock content %}
+      </div>
+
+    <div class="container">
+      <footer class="py-3 my-4">
+        <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+          <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Home</a></li>
+          <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Features</a></li>
+          <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Pricing</a></li>
+          <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">FAQs</a></li>
+          <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">About</a></li>
         </ul>
-       {% comment %} </div> {# TRANSLATE FORM  #} <form action="{% url 'set_language' %} " method="post" class="d-flex ms-3">
-        {% csrf_token %}
-        <input type="hidden" name="next" value={{ redirect_to }}>
-        <select name="language" id="" class="lan form-control">
-          {% get_current_language as LANGUAGE_CODE %}
-          {% get_available_languages as LANGUAGES %}
-          {% get_language_info_list for LANGUAGES as languages %}
-          {% for language in languages %}
-          <option value="{{language.code}}" {% if language.code == LANGUAGE_CODE %} selected {% endif %}>
-            {{ language.name_locale }} {{language.name}}
-          </option>
-          {% endfor %}
-        </select>
-        <input type="submit" value="Go" class="go">
-        </form>
-      </div> {% endcomment %}
-  </nav>
-
-
-  {# SCRIPT SEARCH BOX #}
-  {% block searchbox %}
-  <div class="col-md-6 col-lg-6 col-11 mx-auto my-auto search-box">
-    <div class="input-group form-container">
-      <input type="text" name="search" class="form-control search-input" autofocus="autofoucs" autocomplete="off"
-        placeholder="keyword search" onClick="setBgToDark()">
-      <span class="input-group-btn">
-        <button class="btn btn-search">
-          <img src="{% static 'images/search.png' %}" alt="" width="40px">
-        </button>
-      </span>
+        <p class="text-center text-muted">&copy; 2022 Company, Inc</p>
+      </footer>
     </div>
-  </div>
-  {% endblock searchbox %}
-
-  {# OVERLAY BLOCK  #}
-  {% block overlay %}
-  <div class="bg-body">
-    <img src="{%static 'images/arrival-bg.jpg'%}" alt="">
-  </div>
-  <div class="overlay" id="overlay" onClick="resetBgToDark()"></div>
-  {% endblock overlay %}
-
-
-  {# MAIN BLOCK #}
-  {% block content %}{% endblock content %}
-
-
-
-
-  {# FOOTER #}
-  <div class="container">
-    <footer class="py-3 my-4">
-      <ul class="nav justify-content-center border-bottom pb-3 mb-3">
-        <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Home</a></li>
-        <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Features</a></li>
-        <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Pricing</a></li>
-        <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">FAQs</a></li>
-        <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">About</a></li>
-      </ul>
-      <p class="text-center text-muted">&copy; 2022 Company, Inc</p>
-    </footer>
-  </div>
-
-
-
-
-
-  {# SCRIPT TAGS #}
-  <script src="{% static 'js/jquery-3.4.1.min.js' %}"></script>
-  <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
-  <script src="{% static 'js/popper.min.js' %}"></script>
-  <script src="{% static 'js/all.min.js' %}"></script>
-  <script src="{% static 'js/custom.js' %}"></script>
-  <script type="text/javascript">
-    function setBgToDark() {
-      document.getElementById("overlay").style.opacity = "0.7";
-    }
-
-    function resetBgToDark() {
-      document.getElementById("overlay").style.opacity = "0.2";
-    }
-  </script>
+    
+    <script src="{% static 'js/jquery-3.4.1.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'js/popper.min.js' %}"></script>
+    <script src="{% static 'js/all.min.js' %}"></script>
+    <script src="{% static 'js/custom_javascript.js' %}"></script>
 </body>
-
 </html>
