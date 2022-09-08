@@ -16,7 +16,7 @@
             <span class="navbar-toggler-icon"></span>
           </button>
           <a class="navbar-brand ms-3" href="{% url 'store:store_home' %}">
-           <i class="fa fa-leaf" aria-hidden="true"></i>
+           <i class="fa fa-home" aria-hidden="true"></i>
           </a>
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0 mx-auto">
@@ -28,13 +28,12 @@
               </li>
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  Dropdown
+                  Categories
                 </a>
                 <ul class="dropdown-menu mt-3">
-                  <li><a class="dropdown-item" href="#">Action</a></li>
-                  <li><a class="dropdown-item" href="#">Another action</a></li>
-                  <li><hr class="dropdown-divider"></li>
-                  <li><a class="dropdown-item" href="#">Something else here</a></li>
+                  {% for c in category %}
+                  <li><a class="dropdown-item" href="{% url 'store:store_category' c.slug %}">{{c.name|capfirst}}</a></li>
+                  {% endfor %}
                 </ul>
               </li>
             </ul>
@@ -73,6 +72,7 @@
           </div>
         </div>
       </nav>
+
       <div class="container mt-3">
         {% for message in messages %}
         <div class="container-fluid p-0">
@@ -82,7 +82,15 @@
         </div>
         {% endfor %}
       </div>
-
+      {% block img-header %}
+      <div class="container-fluid my-0">
+        <div class="row over-img-header ">
+          <div class="col text-center ">
+            <img src="{%static 'images/slider-bg.jpg'%}" alt="" srcset="" class="img-fluid">
+          </div>
+        </div>
+      </div>
+      {% endblock img-header %}
       <div class="continer">
         {% block account %}{% endblock account %}
       </div>

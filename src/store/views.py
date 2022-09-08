@@ -7,7 +7,6 @@ from .models import Category,Product
 
 def store_home(request):
     product = Product.objects.all().order_by('?')
-
     context = {
     'product':product
     }
@@ -22,4 +21,10 @@ def store_category(request,cat_id):
     }   
     return render(request,'store/product_category.html',context)
 
-    
+
+def product_detail(request,pro_slug):
+    product = get_object_or_404(Product,slug=pro_slug)
+    context = {
+        'product':product
+    }   
+    return render(request,'store/product_detail.html',context)
