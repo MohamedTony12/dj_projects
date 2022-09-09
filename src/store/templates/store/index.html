@@ -20,7 +20,9 @@
           <div class="product-price"><small>${{pro.selling_price}}</small>${{pro.discount_price}}</div>
           <div class="product-links">
             <a href=""><i class="fa fa-heart"></i></a>
-            <a href=""><i class="fa fa-shopping-cart"></i></a>
+            <button id="add-product-basket" value="{{pro.id}}" type="button" class="btn">
+              <i class="fa fa-shopping-cart" ></i>
+            </button>
           </div>
         </div>
       </div>
@@ -28,5 +30,28 @@
     {% endfor %}
   </div>
 </div>
+
+<script language="JavaScript" type="text/javascript">
+  $(document).on('click','#add-product-basket',function (e) {
+    e.preventDefault();
+   
+    $.ajax({
+      type: "POST",
+      url: "{% url 'cart:addtocartindex' %}",
+      data: {
+        product_id :$('#add-product-basket').val(),
+        csrfmiddlewaretoken:"{{csrf_token}}",
+        action:'post'
+  
+      },
+      
+      success: function (response) {
+        console.log(response);
+      }
+    });
+    
+  });
+</script>
+
 
 {% endblock content %}

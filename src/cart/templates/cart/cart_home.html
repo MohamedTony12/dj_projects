@@ -1,3 +1,17 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block title %}cart home{% endblock title %}
+{% block overlay %}{% endblock overlay %}
+{% block searchbox %}{% endblock searchbox %}
+{% block img-header %}{% endblock img-header %}
+{% block account %}{% endblock account %}
+
+{% block content %}
+
+
+
+
+
 <style>
 
     /*
@@ -65,7 +79,7 @@
     
     /* Body/Header stuff */
     body {
-      padding: 0px 30px 30px 20px;
+      {% comment %} padding: 0px 30px 30px 20px; {% endcomment %}
       font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, sans-serif;
       font-weight: 100;
     }
@@ -252,7 +266,7 @@
 
 
 
-
+<div class="container-fluid mx-auto my-auto ">
 <h1>Shopping Cart</h1>
 
 <div class="shopping-cart">
@@ -328,3 +342,5 @@
       <button class="checkout">Checkout</button>
 
 </div>
+</div>
+{% endblock content %}
